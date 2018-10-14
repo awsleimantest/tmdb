@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import aws.com.tmdb.ui.home.HomeFragment
+import aws.com.themoviedb.app.ui.home.HomeFragment
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
