@@ -7,7 +7,7 @@
     <string name="Genre_s">"<b>Genre:</b> %s"</string>
     <string name="Popularity_d">Popularity : %d</string>
     <string name="Overview_s">"Overview: %s"</string>
-    <string name="duration_s">"Duration: %s"</string>
+    <string name="duration_d">"Duration: %d min"</string>
     <string name="Revenue_s">"Revenue: %s"</string>
     <string name="Language_s">"Language: %s"</string>
     <string name="appbar_scrolling_view_behavior" translatable="false">com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior</string>

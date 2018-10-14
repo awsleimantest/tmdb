@@ -6,7 +6,6 @@ import android.text.SpannableStringBuilder
 import android.text.TextUtils
 import android.text.style.StyleSpan
 import java.text.NumberFormat
-import java.text.SimpleDateFormat
 import java.util.*
 
 
@@ -17,10 +16,6 @@ fun getReleaseYear(releaseDate: String?): String? {
     return releaseDate!!.split("-")[0]
 }
 
-fun longToTime(time: Long): String {
-    val date = Date(time)
-    return SimpleDateFormat("HH:mm").format(date)
-}
 fun getBoldSpannable(input: String, from : Int, to: Int): SpannableStringBuilder{
     val spannableBuilder = SpannableStringBuilder()
     spannableBuilder.append(input)

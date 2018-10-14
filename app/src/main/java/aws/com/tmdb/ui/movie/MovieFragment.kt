@@ -15,7 +15,6 @@ import aws.com.tmdb.MainActivity
 import aws.com.tmdb.R
 import aws.com.tmdb.utils.formatNumber
 import aws.com.tmdb.utils.getBoldSpannable
-import aws.com.tmdb.utils.longToTime
 import kotlinx.android.synthetic.main.movie_fragment.*
 import javax.inject.Inject
 
@@ -90,10 +89,9 @@ class MovieFragment : Fragment() {
             description.visibility = View.GONE
         }
 
-        val time = longToTime(movie.runtime.toLong())
-        if (!TextUtils.isEmpty(time)) {
-            val textValue = getString(R.string.duration_s, time)
-            runtime.text = getBoldSpannable(textValue, 0, textValue.length - time.length -1)
+        if (movie.runtime > 0) {
+            val textValue = getString(R.string.duration_d, movie.runtime)
+            runtime.text = getBoldSpannable(textValue, 0, textValue.indexOf(':'))
             runtime.visibility = View.VISIBLE
         } else {
             runtime.visibility = View.GONE
