@@ -14,7 +14,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
 @Module
-class DiscoverModule// Constructor needs one parameter to instantiate.
+class NetworkModule// Constructor needs one parameter to instantiate.
 (var mBaseUrl: String) {
 
     @Provides
