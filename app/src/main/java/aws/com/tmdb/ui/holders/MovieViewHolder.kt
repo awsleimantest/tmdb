@@ -23,31 +23,21 @@ class MovieViewHolder(itemView: View, private var mCLickListener: MainAdapter.On
             loadImage(itemView.iv_image, null, R.drawable.bg_light_grey)
         }
 
-        if (!TextUtils.isEmpty(movie.title)) {
-            val releaseYear = getReleaseYear(movie.releaseDate)
+        val displayTitle = movie.getDisplayTitle()
+        if (!TextUtils.isEmpty(displayTitle)) {
             itemView.tv_title.visibility = View.VISIBLE
-            itemView.tv_title.text = if (TextUtils.isEmpty(releaseYear)) {
-                movie.title!!
-            } else {
-                movie.title!!.plus(" (").plus(releaseYear).plus(")")
-            }
+            itemView.tv_title.text = displayTitle
         } else {
             itemView.tv_title.visibility = View.GONE
         }
 
         if (movie.popularity > 0) {
             itemView.tv_popularity.visibility = View.VISIBLE
-            itemView.tv_popularity.text = itemView.context.getString(R.string.Popularity, movie.popularity)
+            itemView.tv_popularity.text = itemView.context.getString(R.string.Popularity_f, movie.popularity)
         } else {
             itemView.tv_popularity.visibility = View.GONE
         }
         /* No genres to display at this point so there no need to touch itemView.tv_genre cz it's GONE by default*/
     }
 
-    private fun getReleaseYear(releaseDate: String?): String? {
-        if (TextUtils.isEmpty(releaseDate)) {
-            return null
-        }
-        return releaseDate!!.split("-")[0]
-    }
 }

@@ -1,9 +1,11 @@
 package aws.com.themoviedb.app.db.pojo
 
+import android.text.TextUtils
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
 import aws.com.themoviedb.app.db.Type_converters.*
+import aws.com.tmdb.utils.getReleaseYear
 
 @Entity
 data class Movie(
@@ -32,4 +34,39 @@ data class Movie(
         var runtime: Int = 0,
         @TypeConverters(LanguageListTypeConverter::class) var spokenLanguages: List<Language?>? = emptyList(),
         var status: String? = null,
-        var tagline: String? = null)
+        var tagline: String? = null) {
+
+    fun getDisplayTitle(): String {
+        var result = ""
+        if (!TextUtils.isEmpty(title) || !TextUtils.isEmpty(releaseDate)) {
+            val releaseYear = getReleaseYear(releaseDate)
+            result = if (TextUtils.isEmpty(releaseYear)) {
+                getTitleOrEmpty()
+            } else {
+                getTitleOrEmpty().plus("(").plus(releaseYear).plus(")")
+            }
+        }
+        return result
+    }
+
+    private fun getTitleOrEmpty(): String {
+        return if (title != null) title!! else ""
+    }
+
+    fun getGenresAsString(): String {
+        var result = ""
+        val builder = StringBuilder()
+        if (genres != null) {
+            genres!!.forEach {
+                if(it != null){
+                    if(!builder.isEmpty()){
+                        builder.append(", ")
+                    }
+                    builder.append(it.name)
+                }
+            }
+            result = builder.toString()
+        }
+        return result
+    }
+}
