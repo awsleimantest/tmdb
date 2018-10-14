@@ -5,7 +5,7 @@
     <string name="title_notifications">Notifications</string>
     <string name="api_key" translatable="false">a5d8940e5d389b5863ec14dc2018c03e</string>
     <string name="Genre_s">"<b>Genre:</b> %s"</string>
-    <string name="Popularity_f">Popularity : %f</string>
+    <string name="Popularity_d">Popularity : %d</string>
     <string name="Overview_s">"Overview: %s"</string>
     <string name="duration_s">"Duration: %s"</string>
     <string name="Revenue_s">"Revenue: %s"</string>

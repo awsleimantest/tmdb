@@ -23,7 +23,7 @@ class HomeViewModel @Inject constructor(var mDiscoverModel: HomeModel): ViewMode
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(object : DisposableObserver<List<Movie>>() {
-                    override fun onNext(baseMovies: List<Movie>) {
+                    override fun onNext(movies: List<Movie>) {
                         mIsLoading = false
                     }
 

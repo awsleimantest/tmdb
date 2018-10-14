@@ -92,6 +92,7 @@ class HomeFragment : Fragment() {
     private fun showData(movies: List<Movie>) {
         mAdapter.setData(movies)
         showLoading(false)
+        tv_error.visibility = View.GONE
     }
 
     private fun showError(errorMessage: String?) {

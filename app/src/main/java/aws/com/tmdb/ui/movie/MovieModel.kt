@@ -16,10 +16,9 @@ class MovieModel @Inject constructor(var mApiInterface: APIInterface, var mMovie
     private fun getMoviesFromAPI(id: Int): Observable<Movie> {
         return mApiInterface.getMovieDetails(id).doOnNext { movie ->
             val previousId = mMovieDao.loadMovieId(movie.id)
-            if(previousId == null) {
+            if (previousId == null) {
                 mMovieDao.insert(movie)
-            }
-            else{
+            } else {
                 mMovieDao.update(movie)
             }
         }

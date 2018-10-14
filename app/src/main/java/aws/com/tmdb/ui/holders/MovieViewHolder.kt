@@ -33,7 +33,7 @@ class MovieViewHolder(itemView: View, private var mCLickListener: MainAdapter.On
 
         if (movie.popularity > 0) {
             itemView.tv_popularity.visibility = View.VISIBLE
-            itemView.tv_popularity.text = itemView.context.getString(R.string.Popularity_f, movie.popularity)
+            itemView.tv_popularity.text = itemView.context.getString(R.string.Popularity_d, movie.popularity.toInt())
         } else {
             itemView.tv_popularity.visibility = View.GONE
         }
