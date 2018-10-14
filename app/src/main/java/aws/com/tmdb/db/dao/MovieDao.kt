@@ -16,9 +16,6 @@ interface MovieDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(movie: Movie)
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAll(movies: List<Movie>)
-
     @Update
     fun update(movie: Movie)
 
@@ -30,4 +27,7 @@ interface MovieDao {
 
     @Query("DELETE FROM Movie")
     fun deleteAll()
+
+    @Query("SELECT id FROM Movie WHERE id IS :id")
+    fun loadMovieId(id: Int): Int?
 }

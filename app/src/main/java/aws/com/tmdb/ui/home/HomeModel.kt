@@ -16,7 +16,7 @@ open class HomeModel @Inject constructor(var mAPIInterface: APIInterface, var mM
     private fun getMoviesFromAPI(): Observable<List<Movie>> {
         val observable =  mAPIInterface.getDiscover().doOnNext { discoverMoviesResponse ->
             if(discoverMoviesResponse.results != null) {
-                mMovieDao.insertAll(discoverMoviesResponse.results!!)
+                insertAll(discoverMoviesResponse.results!!)
             }
         }
         return observable.subscribeOn(Schedulers.io())
@@ -25,5 +25,17 @@ open class HomeModel @Inject constructor(var mAPIInterface: APIInterface, var mM
     }
     fun getMoviesFomDB(): LiveData<List<Movie>> {
         return mMovieDao.movies
+    }
+
+
+    fun insertAll(movies: List<Movie>){
+        movies.forEach {movie ->
+            if(mMovieDao.loadMovieId(movie.id) == null){
+                mMovieDao.insert(movie)
+            }
+            else{
+                mMovieDao.update(movie)
+            }
+        }
     }
 }

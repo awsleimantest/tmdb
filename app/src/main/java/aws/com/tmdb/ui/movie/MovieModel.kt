@@ -14,7 +14,15 @@ class MovieModel @Inject constructor(var mApiInterface: APIInterface, var mMovie
     }
 
     private fun getMoviesFromAPI(id: Int): Observable<Movie> {
-        return mApiInterface.getMovieDetails(id).doOnNext { detailedMovie -> mMovieDao.insert(detailedMovie) }
+        return mApiInterface.getMovieDetails(id).doOnNext { movie ->
+            val previousId = mMovieDao.loadMovieId(movie.id)
+            if(previousId == null) {
+                mMovieDao.insert(movie)
+            }
+            else{
+                mMovieDao.update(movie)
+            }
+        }
     }
 
     fun getMoviesFomDB(id: Int): LiveData<Movie> {
