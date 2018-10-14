@@ -48,7 +48,7 @@ class HomeFragment: Fragment() {
                 //TODO go to movie fragment
             }
         })
-        recycler_view.layoutManager = GridLayoutManager(context,2, RecyclerView.VERTICAL, false)
+        recycler_view.layoutManager = GridLayoutManager(context,resources.getInteger(R.integer.span_count), RecyclerView.VERTICAL, false)
         recycler_view.adapter = mAdapter
         recycler_view.addItemDecoration(HomeItemDecoration(resources.getDimension(R.dimen.small_margin).toInt()))
 

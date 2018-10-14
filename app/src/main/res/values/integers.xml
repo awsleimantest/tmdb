@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <integer name="span_count">2</integer>
+    <item name="movie_details_image_ratio" type="integer" format="float">1.78</item>
+</resources>
