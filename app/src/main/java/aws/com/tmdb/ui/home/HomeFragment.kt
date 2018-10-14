@@ -84,11 +84,6 @@ class HomeFragment : Fragment() {
         super.onSaveInstanceState(outState)
     }
 
-    override fun onDestroyView() {
-        recycler_view.adapter = null
-        super.onDestroyView()
-    }
-
     private fun showData(movies: List<Movie>) {
         mAdapter.setData(movies)
         showLoading(false)

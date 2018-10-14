@@ -20,6 +20,7 @@ class MainActivity : AppCompatActivity() {
 
     fun push(fragment: Fragment) {
         supportFragmentManager.beginTransaction()
+                .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left, R.anim.exit_to_right)
                 .replace(R.id.container, fragment)
                 .addToBackStack(null)
                 .commit()
