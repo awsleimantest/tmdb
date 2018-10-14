@@ -38,7 +38,7 @@ class HomeViewModel @Inject constructor(var mDiscoverModel: HomeModel): ViewMode
                 })
     }
 
-    fun getMutableLiveData(): LiveData<List<Movie>> {
+    fun getLiveData(): LiveData<List<Movie>> {
         return mDiscoverModel.getMoviesFomDB()
     }
 
