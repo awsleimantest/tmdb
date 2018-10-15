@@ -4,7 +4,7 @@ import android.content.SharedPreferences
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import aws.com.themoviedb.app.Server.response.DiscoverMoviesResponse
+import aws.com.themoviedb.app.Server.response.MoviesResponse
 import aws.com.themoviedb.app.db.pojo.Movie
 import aws.com.tmdb.utils.HOME_CURRENT_PAGE_INDEX
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -13,8 +13,8 @@ import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 
-class HomeViewModel @Inject constructor(var mDiscoverModel: HomeModel, var mPrefs: SharedPreferences): ViewModel() {
-    internal var mMutableError = MutableLiveData<String>()
+class HomeViewModel @Inject constructor(var mHomeModel: HomeModel, var mPrefs: SharedPreferences): ViewModel() {
+    var mMutableError = MutableLiveData<String>()
     var mIsLoading: Boolean = false
     private var mCurrentPage = 0
     private var mTotalPages = -1
@@ -44,11 +44,11 @@ class HomeViewModel @Inject constructor(var mDiscoverModel: HomeModel, var mPref
         }
         mIsLoading = true
         mCurrentPage++
-        mDiscoverModel.getDiscoverMovies(mCurrentPage)
+        mHomeModel.getDiscoverMovies(mCurrentPage)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(object : DisposableObserver<DiscoverMoviesResponse>() {
-                    override fun onNext(response: DiscoverMoviesResponse) {
+                .subscribe(object : DisposableObserver<MoviesResponse>() {
+                    override fun onNext(response: MoviesResponse) {
                         mPrefs.edit().putInt(HOME_CURRENT_PAGE_INDEX, mCurrentPage).apply()
                         mTotalPages = response.totalPages
                         mIsLoading = false
@@ -67,7 +67,7 @@ class HomeViewModel @Inject constructor(var mDiscoverModel: HomeModel, var mPref
     }
 
     fun getLiveData(): LiveData<List<Movie>> {
-        return mDiscoverModel.getMoviesFomDB()
+        return mHomeModel.getMoviesFomDB()
     }
 
     fun getMutableError(): MutableLiveData<String> {

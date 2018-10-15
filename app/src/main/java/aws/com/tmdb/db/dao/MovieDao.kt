@@ -11,7 +11,7 @@ interface MovieDao {
     val movies: LiveData<List<Movie>>
 
     @Query("SELECT * FROM Movie WHERE id IS :id")
-    fun getMovie(id: Int): LiveData<Movie>
+    fun getMovie(id: Int): LiveData<Movie?>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(movie: Movie)
@@ -21,7 +21,6 @@ interface MovieDao {
 
     @Delete
     fun delete(movie: Movie)
-
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAll(movies: List<Movie>)
@@ -34,4 +33,7 @@ interface MovieDao {
 
     @Query("SELECT id FROM Movie WHERE id IS :id")
     fun loadMovieId(id: Int): Int?
+
+    @Query("DELETE FROM Movie WHERE dispose")
+    fun removeDisposables()
 }

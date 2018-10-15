@@ -10,8 +10,8 @@ import javax.inject.Inject
 
 class MovieViewModel @Inject constructor(var mMovieDetailsDataProvider: MovieModel) : ViewModel() {
 
-    fun loadData(id: Int) {
-        mMovieDetailsDataProvider.getDetailedMovie(id)
+    fun loadData(id: Int, dispose: Boolean) {
+        mMovieDetailsDataProvider.getDetailedMovie(id, dispose)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(object : DisposableObserver<Movie>() {
@@ -29,7 +29,11 @@ class MovieViewModel @Inject constructor(var mMovieDetailsDataProvider: MovieMod
                 })
     }
 
-    fun getMutableLiveData(id: Int): LiveData<Movie> {
+    fun getMutableLiveData(id: Int): LiveData<Movie?> {
         return mMovieDetailsDataProvider.getMoviesFomDB(id)
+    }
+
+    fun dispose(){
+        mMovieDetailsDataProvider.dispose()
     }
 }

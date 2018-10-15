@@ -3,12 +3,12 @@ package aws.com.tmdb.ui.adapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import aws.com.themoviedb.app.db.pojo.Movie
 import aws.com.themoviedb.app.ui.base.holders.MovieViewHolder
 import aws.com.tmdb.R
 import aws.com.tmdb.ui.base.BaseViewHolder
 import aws.com.tmdb.ui.base.Displayable
 import aws.com.tmdb.ui.base.Loading
+import aws.com.tmdb.ui.base.OnItemClickListener
 import aws.com.tmdb.ui.holders.LoadingViewHolder
 import aws.com.tmdb.utils.TYPE_MOVIE
 import java.util.*
@@ -62,11 +62,4 @@ class MainAdapter(private val mCLickListener: OnItemClickListener): RecyclerView
         }
         return false
     }
-
-    interface OnItemClickListener {
-        fun onItemClick(movie: Movie)
-    }
-
-
-
 }

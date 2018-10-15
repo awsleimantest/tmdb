@@ -2,19 +2,19 @@ package aws.com.themoviedb.app.ui.home
 
 import androidx.lifecycle.LiveData
 import aws.com.themoviedb.app.Server.APIInterface
-import aws.com.themoviedb.app.Server.response.DiscoverMoviesResponse
+import aws.com.themoviedb.app.Server.response.MoviesResponse
 import aws.com.themoviedb.app.db.dao.MovieDao
 import aws.com.themoviedb.app.db.pojo.Movie
 import io.reactivex.Observable
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
-open class HomeModel @Inject constructor(var mAPIInterface: APIInterface, var mMovieDao: MovieDao) {
+class HomeModel @Inject constructor(var mAPIInterface: APIInterface, var mMovieDao: MovieDao) {
 
-    internal fun getDiscoverMovies(page: Int): Observable<DiscoverMoviesResponse> {
+    internal fun getDiscoverMovies(page: Int): Observable<MoviesResponse> {
         return getMoviesFromAPI(page)
     }
-    private fun getMoviesFromAPI(page: Int): Observable<DiscoverMoviesResponse> {
+    private fun getMoviesFromAPI(page: Int): Observable<MoviesResponse> {
         val observable =  mAPIInterface.getDiscover(page).doOnNext { discoverMoviesResponse ->
             if(discoverMoviesResponse.results != null && discoverMoviesResponse.results!!.isNotEmpty()) {
                 if(page == 1){

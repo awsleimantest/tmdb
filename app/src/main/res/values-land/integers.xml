@@ -2,5 +2,6 @@
 <resources>
 
     <integer name="span_count">4</integer>
+    <integer name="row_span_count">2</integer>
     <item name="movie_details_image_ratio" type="integer" format="float">4</item>
 </resources>

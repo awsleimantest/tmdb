@@ -36,7 +36,8 @@ data class Movie(
         var runtime: Int = 0,
         @TypeConverters(LanguageListTypeConverter::class) var spokenLanguages: List<Language?>? = emptyList(),
         var status: String? = null,
-        var tagline: String? = null): Displayable {
+        var tagline: String? = null,
+        var dispose: Boolean = false): Displayable {
 
     override fun getType(): Int {
         return TYPE_MOVIE

@@ -19,12 +19,15 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun push(fragment: Fragment) {
-        supportFragmentManager.beginTransaction()
-                .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left, R.anim.exit_to_right)
+    fun push(fragment: Fragment, animate: Boolean = true) {
+        val transaction = supportFragmentManager.beginTransaction()
                 .replace(R.id.container, fragment)
-                .addToBackStack(null)
-                .commit()
+                .addToBackStack("root_fragment")
+
+        if(animate){
+            transaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left, R.anim.exit_to_right)
+        }
+        transaction.commit()
     }
 
     fun pop() {

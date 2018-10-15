@@ -6,12 +6,12 @@ import aws.com.themoviedb.app.db.pojo.Movie
 import aws.com.themoviedb.app.utils.getImagePath
 import aws.com.themoviedb.app.utils.loadImage
 import aws.com.tmdb.R
-import aws.com.tmdb.ui.adapters.MainAdapter
-import aws.com.tmdb.ui.base.Displayable
 import aws.com.tmdb.ui.base.BaseViewHolder
+import aws.com.tmdb.ui.base.Displayable
+import aws.com.tmdb.ui.base.OnItemClickListener
 import kotlinx.android.synthetic.main.movie_holder_layout.view.*
 
-class MovieViewHolder(itemView: View, private var mCLickListener: MainAdapter.OnItemClickListener?) : BaseViewHolder(itemView) {
+class MovieViewHolder(itemView: View, private var mCLickListener: OnItemClickListener?) : BaseViewHolder(itemView) {
     override fun bind(movie: Displayable) {
         if(movie is Movie){
             itemView.setOnClickListener {
@@ -34,7 +34,7 @@ class MovieViewHolder(itemView: View, private var mCLickListener: MainAdapter.On
 
             if (movie.popularity > 0) {
                 itemView.tv_popularity.visibility = View.VISIBLE
-                itemView.tv_popularity.text = itemView.context.getString(R.string.Popularity_d, movie.popularity.toInt())
+                itemView.tv_popularity.text = itemView.context.getString(R.string.Popularity_s, movie.popularity.toInt().toString())
             } else {
                 itemView.tv_popularity.visibility = View.GONE
             }

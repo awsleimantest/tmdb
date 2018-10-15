@@ -11,8 +11,9 @@ import aws.com.themoviedb.app.TMDBApplication
 import aws.com.themoviedb.app.db.pojo.Movie
 import aws.com.themoviedb.app.utils.getImagePath
 import aws.com.themoviedb.app.utils.loadImage
-import aws.com.tmdb.ui.MainActivity
 import aws.com.tmdb.R
+import aws.com.tmdb.ui.MainActivity
+import aws.com.tmdb.utils.OPEN_MOVIE_SOURCE_SEARCH
 import aws.com.tmdb.utils.formatNumber
 import aws.com.tmdb.utils.getBoldSpannable
 import kotlinx.android.synthetic.main.movie_fragment.*
@@ -21,11 +22,13 @@ import javax.inject.Inject
 class MovieFragment : Fragment() {
 
     companion object {
+        const val SOURCE_KEY = "source_key"
         const val MOVIE_ID_KEY = "movie_id_key"
-        fun newInstance(movieId: Int): MovieFragment {
+        fun newInstance(movieId: Int, source: String): MovieFragment {
             val fragment = MovieFragment()
             val bundle = Bundle()
             bundle.putInt(MOVIE_ID_KEY, movieId)
+            bundle.putString(SOURCE_KEY, source)
             fragment.arguments = bundle
             return fragment
         }
@@ -35,12 +38,26 @@ class MovieFragment : Fragment() {
     lateinit var mViewModel: MovieViewModel
 
     private var movieId: Int = 0
+    private lateinit var mSource: String;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         (activity?.application as TMDBApplication).getAppComponent().inject(this)
         movieId = savedInstanceState?.getInt(MOVIE_ID_KEY) ?: arguments!!.getInt(MOVIE_ID_KEY)
-        mViewModel.loadData(movieId)
+        mSource = savedInstanceState?.getString(SOURCE_KEY) ?: arguments!!.getString(SOURCE_KEY)!!
+        mViewModel.loadData(movieId, disposable())
+    }
+
+    private fun disposable(): Boolean{
+        return listOf(
+                OPEN_MOVIE_SOURCE_SEARCH
+                // Here should be added all the sources that might affect our DB
+        ).contains(mSource)
+    }
+
+    override fun onDestroy() {
+        mViewModel.dispose()
+        super.onDestroy()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -57,12 +74,18 @@ class MovieFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         (activity as MainActivity).setSupportActionBar(toolbar)
         (activity as MainActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        mViewModel.getMutableLiveData(movieId).observe(this, Observer<Movie> { movie ->
-            updateView(movie)
+        mViewModel.getMutableLiveData(movieId).observe(this, Observer{ movie ->
+            if(movie != null){
+                updateView(movie!!)
+            }
+            else{
+                showLoading()
+            }
         })
     }
 
     private fun updateView(movie: Movie) {
+        showLoading(false)
         loadImage(iv_image, getImagePath(movie.backdropPath), -1)
         val displayTitle = movie.getDisplayTitle()
         if (displayTitle.isEmpty()) {
@@ -70,6 +93,15 @@ class MovieFragment : Fragment() {
         } else {
             collapsing_toolbar_layout.title = displayTitle
             collapsing_toolbar_layout.isTitleEnabled = true
+        }
+
+        if (movie.popularity > 0) {
+            val popularityValue = movie.popularity.toInt().toString()
+            val textValue = getString(R.string.Popularity_s, popularityValue)
+            popularity.visibility = View.VISIBLE
+            popularity.text = getBoldSpannable(textValue, 0, textValue.length - popularityValue.length -1)
+        } else {
+            popularity.visibility = View.GONE
         }
 
         val genres = movie.getGenresAsString()
@@ -119,6 +151,15 @@ class MovieFragment : Fragment() {
             link.visibility = View.VISIBLE
         } else {
             link.visibility = View.GONE
+        }
+    }
+
+    private fun showLoading(show: Boolean = false){
+        if(show){
+            progressBar.visibility = View.VISIBLE
+        }
+        else{
+            progressBar.visibility = View.GONE
         }
     }
 

@@ -61,9 +61,20 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="@dimen/small_margin"
-                android:orientation="vertical"
-                app:layout_anchorGravity="center">
+                android:orientation="vertical">
 
+                <ProgressBar
+                    android:id="@+id/progressBar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:visibility="gone"/>
+
+                <TextView
+                    android:id="@+id/popularity"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/x_small_margin"/>
                 <TextView
                     android:id="@+id/genre"
                     android:layout_width="match_parent"
