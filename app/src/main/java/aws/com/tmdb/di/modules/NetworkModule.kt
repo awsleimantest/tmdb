@@ -1,5 +1,8 @@
 package aws.com.themoviedb.app.di.modules
 
+import android.app.Application
+import android.content.SharedPreferences
+import android.preference.PreferenceManager
 import aws.com.themoviedb.app.Server.APIInterface
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.Gson
@@ -14,8 +17,17 @@ import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
 @Module
-class NetworkModule// Constructor needs one parameter to instantiate.
-(var mBaseUrl: String) {
+class NetworkModule(var mBaseUrl: String) {
+
+
+    // Dagger will only look for methods annotated with @Provides
+    @Provides
+    @Singleton
+    internal fun providesSharedPreferences(application: Application):
+    // Application reference must come from AppModule.class
+            SharedPreferences {
+        return PreferenceManager.getDefaultSharedPreferences(application)
+    }
 
     @Provides
     @Singleton

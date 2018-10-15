@@ -5,6 +5,8 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
 import aws.com.themoviedb.app.db.Type_converters.*
+import aws.com.tmdb.ui.base.Displayable
+import aws.com.tmdb.utils.TYPE_MOVIE
 import aws.com.tmdb.utils.getReleaseYear
 
 @Entity
@@ -34,7 +36,11 @@ data class Movie(
         var runtime: Int = 0,
         @TypeConverters(LanguageListTypeConverter::class) var spokenLanguages: List<Language?>? = emptyList(),
         var status: String? = null,
-        var tagline: String? = null) {
+        var tagline: String? = null): Displayable {
+
+    override fun getType(): Int {
+        return TYPE_MOVIE
+    }
 
     fun getDisplayTitle(): String {
         var result = ""

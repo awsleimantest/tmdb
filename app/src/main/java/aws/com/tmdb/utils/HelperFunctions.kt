@@ -1,6 +1,9 @@
 package aws.com.tmdb.utils
 
+import android.content.Context
 import android.graphics.Typeface
+import android.net.ConnectivityManager
+import android.net.NetworkInfo
 import android.text.Spannable
 import android.text.SpannableStringBuilder
 import android.text.TextUtils
@@ -48,4 +51,10 @@ fun formatNumber(count: Long): String {
     }
 
     return formattedCount + scaleSpecifier
+}
+
+fun isConnected(context: Context):Boolean{
+    val cm = context!!.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+    val activeNetwork: NetworkInfo? = cm.activeNetworkInfo
+    return activeNetwork?.isConnected == true
 }

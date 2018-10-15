@@ -4,7 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import androidx.appcompat.app.AppCompatActivity
-import aws.com.tmdb.MainActivity
+import aws.com.tmdb.ui.MainActivity
 import java.util.*
 
 class SplashActivity: AppCompatActivity() {

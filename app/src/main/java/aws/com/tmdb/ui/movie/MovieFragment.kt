@@ -11,7 +11,7 @@ import aws.com.themoviedb.app.TMDBApplication
 import aws.com.themoviedb.app.db.pojo.Movie
 import aws.com.themoviedb.app.utils.getImagePath
 import aws.com.themoviedb.app.utils.loadImage
-import aws.com.tmdb.MainActivity
+import aws.com.tmdb.ui.MainActivity
 import aws.com.tmdb.R
 import aws.com.tmdb.utils.formatNumber
 import aws.com.tmdb.utils.getBoldSpannable

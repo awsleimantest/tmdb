@@ -2,6 +2,7 @@ package aws.com.themoviedb.app.ui.home
 
 import androidx.lifecycle.LiveData
 import aws.com.themoviedb.app.Server.APIInterface
+import aws.com.themoviedb.app.Server.response.DiscoverMoviesResponse
 import aws.com.themoviedb.app.db.dao.MovieDao
 import aws.com.themoviedb.app.db.pojo.Movie
 import io.reactivex.Observable
@@ -10,25 +11,30 @@ import javax.inject.Inject
 
 open class HomeModel @Inject constructor(var mAPIInterface: APIInterface, var mMovieDao: MovieDao) {
 
-    internal fun getDiscoverMovies(): Observable<List<Movie>> {
-        return getMoviesFromAPI()
+    internal fun getDiscoverMovies(page: Int): Observable<DiscoverMoviesResponse> {
+        return getMoviesFromAPI(page)
     }
-    private fun getMoviesFromAPI(): Observable<List<Movie>> {
-        val observable =  mAPIInterface.getDiscover().doOnNext { discoverMoviesResponse ->
-            if(discoverMoviesResponse.results != null) {
-                insertAll(discoverMoviesResponse.results!!)
+    private fun getMoviesFromAPI(page: Int): Observable<DiscoverMoviesResponse> {
+        val observable =  mAPIInterface.getDiscover(page).doOnNext { discoverMoviesResponse ->
+            if(discoverMoviesResponse.results != null && discoverMoviesResponse.results!!.isNotEmpty()) {
+                if(page == 1){
+                    mMovieDao.deleteAll()
+                    mMovieDao.insertAll(discoverMoviesResponse.results!!)
+                }
+                else{
+                    insertOrUpdateList(discoverMoviesResponse.results!!)
+                }
             }
         }
         return observable.subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.io())
-                .flatMap<List<Movie>> { discoverMoviesResponse -> Observable.just(discoverMoviesResponse.results) }
     }
+
     fun getMoviesFomDB(): LiveData<List<Movie>> {
         return mMovieDao.movies
     }
 
-
-    fun insertAll(movies: List<Movie>){
+    fun insertOrUpdateList(movies: List<Movie>){
         movies.forEach {movie ->
             if(mMovieDao.loadMovieId(movie.id) == null){
                 mMovieDao.insert(movie)
@@ -38,4 +44,5 @@ open class HomeModel @Inject constructor(var mAPIInterface: APIInterface, var mM
             }
         }
     }
+
 }
