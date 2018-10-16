@@ -4,11 +4,7 @@
     xmlns:fresco="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="6dp"
-    android:layout_marginBottom="6dp"
-    android:layout_marginRight="12dp"
-    android:layout_marginLeft="12dp">
+    android:layout_height="64dp">
 
 <androidx.constraintlayout.widget.ConstraintLayout
     android:foreground="?android:attr/selectableItemBackground"
@@ -17,17 +13,18 @@
 
     <com.facebook.drawee.view.SimpleDraweeView
         android:id="@+id/iv_image"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
         android:adjustViewBounds="true"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         fresco:actualImageScaleType="centerCrop"
         fresco:placeholderImageScaleType="centerCrop"
         fresco:viewAspectRatio="@integer/movie_details_image_ratio"
-        tools:background="#ff0000"/>
+        tools:background="#ff0000" />
 
-    <TextView
-        android:id="@+id/tv_title"
+    <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -35,24 +32,36 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:gravity="start"
-        android:textStyle="bold"
+        android:layout_marginBottom="8dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/iv_image"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="some title here(2005)" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-        android:id="@+id/tv_popularity"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:gravity="start"
-        android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/iv_image"
-        app:layout_constraintTop_toBottomOf="@+id/tv_title"
-        tools:text="hey you here" />
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            android:textStyle="bold"
+            tools:text="some title here(2005)" />
+
+        <TextView
+            android:id="@+id/tv_popularity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginBottom="8dp"
+            android:gravity="start"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/iv_image"
+            app:layout_constraintTop_toBottomOf="@+id/tv_title"
+            tools:text="hey you here" />
+
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

@@ -12,4 +12,8 @@
     <string name="Language_s">"Language: %s"</string>
     <string name="appbar_scrolling_view_behavior" translatable="false">com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior</string>
     <string name="action_search">search</string>
+    <string name="no_movies_found_for_query_s">No movies found for: %s</string>
+    <string name="server_and_connection_error_message">Oop! something wrong just happened \n Are you sure you\'re connected?</string>
+    <string name="this_feature_needs_connection">This feature needs internet connection</string>
+    <string name="lost_connection_message">Oops! it seems like you\'ve lost your connection.</string>
 </resources>

@@ -21,10 +21,14 @@ class SearchAdapter(private val mCLickListener: OnItemClickListener): RecyclerVi
     }
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
-        holder.bind(mData[position])
+        holder.bind(mData[position], true)
     }
 
     override fun getItemCount(): Int {
         return mData.size
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return mData[position].getType()
     }
 }

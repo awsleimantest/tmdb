@@ -12,14 +12,22 @@ import aws.com.tmdb.ui.base.OnItemClickListener
 import kotlinx.android.synthetic.main.movie_holder_layout.view.*
 
 class MovieViewHolder(itemView: View, private var mCLickListener: OnItemClickListener?) : BaseViewHolder(itemView) {
+
+    var isRow = false
+    fun bind(movie: Displayable, isRow: Boolean) {
+        this.isRow = isRow
+        bind(movie)
+    }
+
     override fun bind(movie: Displayable) {
         if(movie is Movie){
             itemView.setOnClickListener {
                 mCLickListener?.onItemClick(movie)
             }
 
-            if (!TextUtils.isEmpty(movie.posterPath)) {
-                loadImage(itemView.iv_image, getImagePath(movie.posterPath!!), R.drawable.bg_light_grey)
+            val image = if(this.isRow) movie.backdropPath else movie.posterPath
+            if (!TextUtils.isEmpty(image)) {
+                loadImage(itemView.iv_image, getImagePath(image), R.drawable.bg_light_grey)
             } else {
                 loadImage(itemView.iv_image, null, R.drawable.bg_light_grey)
             }

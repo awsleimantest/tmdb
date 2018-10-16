@@ -71,7 +71,7 @@ class HomeFragment : Fragment() {
             showLoading(false)
             mAdapter.removLoading()
             if (mAdapter.itemCount == 0) {
-                showError(s)
+                showError(getString(R.string.server_and_connection_error_message))
             }
         })
         mAdapter = MainAdapter(object : OnItemClickListener {
@@ -132,7 +132,7 @@ class HomeFragment : Fragment() {
                     (activity as MainActivity).push(SearchFragment.newInstance(), false)
                 }
                 else{
-                    Toast.makeText(activity!!, "This feature needs internet connection",Toast.LENGTH_LONG).show()
+                    Toast.makeText(activity!!, R.string.this_feature_needs_connection,Toast.LENGTH_LONG).show()
                 }
             }
         }
