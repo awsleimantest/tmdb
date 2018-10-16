@@ -3,7 +3,6 @@ package aws.com.tmdb.ui.search
 import android.os.Bundle
 import android.os.Handler
 import android.text.TextUtils
-import android.util.Log
 import android.view.*
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
@@ -51,7 +50,6 @@ class SearchFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.v("awslog", "$TAG onCreate() called ")
         setHasOptionsMenu(true)
         (activity?.application as TMDBApplication).getAppComponent().inject(this)
         var initialPosition: Int? = savedInstanceState?.getInt(SCROLL_POSITION_KEY, -1)
@@ -88,13 +86,11 @@ class SearchFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        Log.v("awslog", "$TAG onCreateView() called ")
         return inflater.inflate(R.layout.search_fragment, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Log.v("awslog", "$TAG onViewCreated() called ")
         (activity as MainActivity).setSupportActionBar(toolBar)
 
         val columns = resources.getInteger(R.integer.row_span_count)
@@ -115,7 +111,6 @@ class SearchFragment : Fragment() {
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
-        Log.v("awslog", "$TAG onSaveInstanceState() called ")
         if(recycler_view != null && recycler_view.layoutManager != null){
             outState.putInt(SCROLL_POSITION_KEY, (recycler_view.layoutManager as GridLayoutManager).findFirstCompletelyVisibleItemPosition())
         }
@@ -176,7 +171,6 @@ class SearchFragment : Fragment() {
     }
 
     private fun showError(errorMessage: String?) {
-        Log.v("awslog", "$TAG showError() called error: $errorMessage")
         if (!TextUtils.isEmpty(errorMessage)) {
             errorTextView.text = errorMessage
             errorTextView.visibility = View.VISIBLE

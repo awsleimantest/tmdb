@@ -29,7 +29,6 @@ class SearchViewModel @Inject constructor(var mSearchModel: SearchModel) : ViewM
         if(query.isNotEmpty()){
             val existingVal = dic.get(key = query)
             if(existingVal != null){
-                Log.v("awslog", "$TAG loadData() called woooohooooo I'm saving energy, Green earth ")
                 Observable.fromCallable {
                     mMutableLiveData.postValue(existingVal)
                     Any()
