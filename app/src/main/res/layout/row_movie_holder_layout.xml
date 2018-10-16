@@ -4,7 +4,7 @@
     xmlns:fresco="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="64dp">
+    android:layout_height="wrap_content">
 
 <androidx.constraintlayout.widget.ConstraintLayout
     android:foreground="?android:attr/selectableItemBackground"
@@ -13,8 +13,8 @@
 
     <com.facebook.drawee.view.SimpleDraweeView
         android:id="@+id/iv_image"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
+        android:layout_width="92dp"
+        android:layout_height="wrap_content"
         android:adjustViewBounds="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"

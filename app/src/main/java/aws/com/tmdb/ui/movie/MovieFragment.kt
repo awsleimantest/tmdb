@@ -86,7 +86,7 @@ class MovieFragment : Fragment() {
 
     private fun updateView(movie: Movie) {
         showLoading(false)
-        loadImage(iv_image, getImagePath(movie.backdropPath), -1)
+        loadImage(iv_image, getImagePath(movie.backdropPath, "w780"), -1)
         val displayTitle = movie.getDisplayTitle()
         if (displayTitle.isEmpty()) {
             collapsing_toolbar_layout.isTitleEnabled = false

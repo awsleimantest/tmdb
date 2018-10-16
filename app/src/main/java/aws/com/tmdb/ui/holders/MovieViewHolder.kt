@@ -19,20 +19,25 @@ class MovieViewHolder(itemView: View, private var mCLickListener: OnItemClickLis
         bind(movie)
     }
 
-    override fun bind(movie: Displayable) {
-        if(movie is Movie){
+    override fun bind(item: Displayable) {
+        if(item is Movie){
             itemView.setOnClickListener {
-                mCLickListener?.onItemClick(movie)
+                mCLickListener?.onItemClick(item)
             }
 
-            val image = if(this.isRow) movie.backdropPath else movie.posterPath
+            var imageSize = if(isRow) "w92" else "w500"
+            var image = if(this.isRow) item.backdropPath?: item.posterPath else item.posterPath
+            if(image == null && this.isRow) {//Some of the movies has null backdrops
+                image = item.posterPath
+                imageSize = "w154"
+            }
             if (!TextUtils.isEmpty(image)) {
-                loadImage(itemView.iv_image, getImagePath(image), R.drawable.bg_light_grey)
+                loadImage(itemView.iv_image, getImagePath(image, imageSize), R.drawable.bg_light_grey)
             } else {
                 loadImage(itemView.iv_image, null, R.drawable.bg_light_grey)
             }
 
-            val displayTitle = movie.getDisplayTitle()
+            val displayTitle = item.getDisplayTitle()
             if (!TextUtils.isEmpty(displayTitle)) {
                 itemView.tv_title.visibility = View.VISIBLE
                 itemView.tv_title.text = displayTitle
@@ -40,9 +45,9 @@ class MovieViewHolder(itemView: View, private var mCLickListener: OnItemClickLis
                 itemView.tv_title.visibility = View.GONE
             }
 
-            if (movie.popularity > 0) {
+            if (item.popularity > 0) {
                 itemView.tv_popularity.visibility = View.VISIBLE
-                itemView.tv_popularity.text = itemView.context.getString(R.string.Popularity_s, movie.popularity.toInt().toString())
+                itemView.tv_popularity.text = itemView.context.getString(R.string.Popularity_s, item.popularity.toInt().toString())
             } else {
                 itemView.tv_popularity.visibility = View.GONE
             }

@@ -2,6 +2,7 @@ package aws.com.themoviedb.app.utils
 
 import android.net.Uri
 import android.text.TextUtils
+import android.util.Log
 import com.facebook.drawee.backends.pipeline.Fresco
 import com.facebook.drawee.view.SimpleDraweeView
 import com.facebook.imagepipeline.request.ImageRequestBuilder
@@ -25,9 +26,11 @@ fun loadImage(draweeView: SimpleDraweeView, url: String?, placeHolderResId: Int)
             .build()
 }
 
-fun getImagePath(posterPath: String?): String? {
+fun getImagePath(posterPath: String?, res : String): String? {
     if(TextUtils.isEmpty(posterPath)){
         return null
     }
-    return "https://image.tmdb.org/t/p/w500$posterPath"
+    val result =  "https://image.tmdb.org/t/p/$res$posterPath"
+    Log.v("awslog", " getImagePath() called result : $result")
+    return result
 }
