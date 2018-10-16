@@ -25,11 +25,11 @@ class MovieViewHolder(itemView: View, private var mCLickListener: OnItemClickLis
                 mCLickListener?.onItemClick(item)
             }
 
-            var imageSize = if(isRow) "w92" else "w500"
+            var imageSize = if(isRow) "w300" else "w500"
             var image = if(this.isRow) item.backdropPath?: item.posterPath else item.posterPath
             if(image == null && this.isRow) {//Some of the movies has null backdrops
                 image = item.posterPath
-                imageSize = "w154"
+                imageSize = "w342"
             }
             if (!TextUtils.isEmpty(image)) {
                 loadImage(itemView.iv_image, getImagePath(image, imageSize), R.drawable.bg_light_grey)
