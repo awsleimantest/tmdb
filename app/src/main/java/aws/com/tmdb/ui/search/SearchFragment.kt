@@ -73,7 +73,7 @@ class SearchFragment : Fragment() {
             override fun onItemClick(movie: Movie) {
                 if(activity != null) {
                     if (isConnected(activity!!)) {
-                        (activity as MainActivity).replace(MovieFragment.newInstance(movie.id, OPEN_MOVIE_SOURCE_SEARCH))
+                        (activity as MainActivity).push(MovieFragment.newInstance(movie.id, OPEN_MOVIE_SOURCE_SEARCH))
                     }
                     else{
                         Toast.makeText(activity!!, R.string.lost_connection_message,Toast.LENGTH_LONG).show()

@@ -1,7 +1,6 @@
 package aws.com.tmdb.ui
 
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -28,20 +27,6 @@ class MainActivity : AppCompatActivity() {
         transaction.replace(R.id.container, fragment,"last_push")
                 .addToBackStack(null)
                 .commit()
-    }
-    private val TAG = "MainActivity.kt: "
-
-    fun replace(fragment: Fragment){
-        val oldFragment = supportFragmentManager.findFragmentByTag("last_push")
-        val ft = supportFragmentManager.beginTransaction()
-        ft.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left, R.anim.exit_to_right)
-        Log.v("awslog", "$TAG replace() called oldFragment : $oldFragment")
-        if(oldFragment != null) {
-            ft.remove(oldFragment!!)
-        }
-        ft.add(R.id.container, fragment, "last_push")
-                .addToBackStack(null)
-        ft.commit()
     }
 
     fun pop() {
